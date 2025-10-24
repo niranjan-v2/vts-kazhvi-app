@@ -1,0 +1,13 @@
+./app
+├── (app)
+│   ├── _layout.tsx
+│   ├── modules.tsx
+│   └── profile.tsx
+├── (auth)
+│   ├── _layout.tsx
+│   └── login.tsx
+├── _layout.tsx
+├── globals.css
+└── index.tsx
+
+3 directories, 8 files
