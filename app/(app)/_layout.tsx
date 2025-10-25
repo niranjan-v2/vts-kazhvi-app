@@ -1,15 +1,13 @@
 // app/(app)/_layout.tsx
-import { Tabs } from 'expo-router';
-import { useSessionStore } from '../../store/session';
-import { Redirect } from 'expo-router';
+import { Tabs, Redirect } from 'expo-router';
 import { Text } from 'react-native';
+import { useSessionStore } from '../../store/session';
+import Entypo from '@expo/vector-icons/Entypo';
 
-// Simple wrapper to block access if not logged in
 function ProtectedTabs({ children }: { children: React.ReactNode }) {
     const user = useSessionStore((s) => s.user);
 
     if (!user) {
-        // Not logged in? Go to login.
         return <Redirect href="/(auth)/login" />;
     }
 

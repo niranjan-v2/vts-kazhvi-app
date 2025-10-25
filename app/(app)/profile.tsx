@@ -1,14 +1,26 @@
 // app/(app)/profile.tsx
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, Alert } from 'react-native';
 import { useSessionStore } from '../../store/session';
-import { Redirect } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
+import Button from '../../components/ui/Button';
+import { signOutRemote } from '../../lib/auth';
 
 export default function ProfileScreen() {
+    const router = useRouter();
+
     const user = useSessionStore((s) => s.user);
+    const signOutLocal = useSessionStore((s) => s.signOutLocal);
 
     if (!user) {
         return <Redirect href="/(auth)/login" />;
+    }
+
+    async function handleSignOut() {
+        await signOutRemote();
+        signOutLocal();
+        Alert.alert('Signed out', 'You have been signed out.');
+        router.replace('/(auth)/login');
     }
 
     return (
@@ -33,6 +45,12 @@ export default function ProfileScreen() {
                     {user.stars} ⭐
                 </Text>
             </View>
+
+            <Button
+                label="வெளியேறு"
+                onPress={handleSignOut}
+                className="mt-8 bg-red-600"
+            />
 
             <Text className="text-xs text-gray-400 mt-8">
                 ஆசிரியருக்கான அறிக்கை (reporting) வரும் கட்டங்களில் சேர்க்கப்படும்.

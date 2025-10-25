@@ -5,6 +5,8 @@ import { createClient } from '@supabase/supabase-js';
 // Expo picks up env vars that start with EXPO_PUBLIC_ at runtime.
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL ?? '';
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY ?? '';
+console.log('Supabase URL:', process.env.EXPO_PUBLIC_SUPABASE_URL);
+console.log('Supabase Key:', process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY);
 
 // NOTE: If these are empty, calling supabase.* will throw,
 // but merely importing this file is fine. We'll wire real values next.
