@@ -3,6 +3,7 @@ import { Tabs, Redirect } from 'expo-router';
 import { Text } from 'react-native';
 import { useSessionStore } from '../../store/session';
 import Entypo from '@expo/vector-icons/Entypo';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 function ProtectedTabs({ children }: { children: React.ReactNode }) {
     const user = useSessionStore((s) => s.user);
@@ -37,8 +38,16 @@ export default function AppTabsLayout() {
                             <Text style={{ color, fontSize: 12 }}>மொடியூல்கள்</Text>
                         ),
                         headerTitle: 'மொடியூல்கள்',
+                        tabBarIcon: ({ color, focused }) => (
+                            <Entypo
+                                name="book"
+                                size={22}
+                                color={focused ? '#000000' : '#9ca3af'} // active/inactive colors
+                            />
+                        ),
                     }}
                 />
+
                 <Tabs.Screen
                     name="profile"
                     options={{
@@ -47,6 +56,12 @@ export default function AppTabsLayout() {
                             <Text style={{ color, fontSize: 12 }}>சுயவிவரம்</Text>
                         ),
                         headerTitle: 'சுயவிவரம்',
+                        tabBarIcon: ({color, focused}) => (
+                            <FontAwesome
+                                name="user"
+                                size={22}
+                                color={focused ? '#000000' : '#9ca3af'} />
+                        ),
                     }}
                 />
             </Tabs>
