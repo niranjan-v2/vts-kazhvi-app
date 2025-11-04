@@ -71,15 +71,21 @@ export default function LoginScreen() {
                         <Image
                             source={require('../../assets/images/valluvan-logo-banner.png')}
                             style={{
-                                width: 200,
-                                height: 80,
+                                width: 500,
+                                height: 200,
                                 resizeMode: 'contain',
                                 marginBottom: 16,
                             }}
                         />
 
-                        <Text className="text-2xl font-bold text-green-900 mb-2">
+                        <Text className="text-2xl font-bold text-green-900 mb-4">
                             வள்ளுவன் தமிழ் பள்ளி
+                        </Text>
+                        <Text className="text-2xl font-bold text-green-900">
+                            Valluvan Tamil School
+                        </Text>
+                        <Text className="text-xl font-bold text-green-900 mb-2">
+                            Western Australia
                         </Text>
                         <Text className="text-base text-gray-600 mb-8 text-center">
                             Sign in with your registered email address and password given by school faculty.

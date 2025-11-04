@@ -5,7 +5,7 @@ import { useSessionStore } from '../../store/session';
 import { Redirect } from 'expo-router';
 
 // Placeholder module data by level.
-// In Week 4–6 this will come from quiz JSON per level (data/quizzes/level1.json etc.)
+// this will come from quiz JSON per level (data/quizzes/level1.json etc.)
 const SAMPLE_MODULES: Record<string, Array<{ id: string; titleTa: string }>> = {
     'Level-1': [
         { id: 'l1-m1', titleTa: 'உயிரெழுத்து வினா' },
