@@ -107,6 +107,7 @@ export default function LoginScreen() {
                                 onChangeText={setPassword}
                                 placeholder="••••••••"
                                 secureTextEntry
+                                className="mt-4"
                             />
                         </View>
 

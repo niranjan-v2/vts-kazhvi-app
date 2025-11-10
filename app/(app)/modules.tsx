@@ -1,8 +1,17 @@
 // app/(app)/modules.tsx
 import React from 'react';
-import { View, Text, FlatList } from 'react-native';
+import {
+    View,
+    Text,
+    FlatList,
+    ImageBackground,
+    StyleSheet,
+} from 'react-native';
 import { useSessionStore } from '../../store/session';
 import { Redirect } from 'expo-router';
+
+// Background image
+const MODULES_BG = require('../../assets/images/modules_bg.png');
 
 // Placeholder module data by level.
 // this will come from quiz JSON per level (data/quizzes/level1.json etc.)
@@ -32,30 +41,49 @@ export default function ModulesScreen() {
         (user.level && SAMPLE_MODULES[user.level]) || [];
 
     return (
-        <View className="flex-1 bg-white p-4">
-            <Text className="text-lg font-semibold mb-2 text-gray-900">
-                {user.level ?? ''} - மொடியூல்கள்
-            </Text>
+        <ImageBackground
+            source={MODULES_BG}
+            style={styles.bg}
+            resizeMode="cover"
+        >
+            {/* Optional subtle overlay for readability */}
+            <View style={styles.overlay} />
 
-            <FlatList
-                data={listForLevel}
-                keyExtractor={(item) => item.id}
-                renderItem={({ item }) => (
-                    <View className="p-4 mb-3 rounded-2xl border border-gray-200 bg-gray-50">
-                        <Text className="text-base font-medium text-gray-900">
-                            {item.titleTa}
+            <View className="flex-1 p-4">
+                <Text className="text-lg font-semibold mb-2 text-gray-900">
+                    {user.level ?? ''} - மொடியூல்கள்
+                </Text>
+
+                <FlatList
+                    data={listForLevel}
+                    keyExtractor={(item) => item.id}
+                    renderItem={({ item }) => (
+                        <View className="p-4 mb-3 rounded-2xl border border-gray-200 bg-gray-50/90">
+                            <Text className="text-base font-medium text-gray-900">
+                                {item.titleTa}
+                            </Text>
+                            <Text className="text-xs text-gray-500 mt-1">
+                                1 ⭐ கிடைக்கும்
+                            </Text>
+                        </View>
+                    )}
+                    ListEmptyComponent={
+                        <Text className="text-sm text-gray-400 mt-8">
+                            இந்த நிலைக்கு மொடியூல்கள் இன்னும் இல்லை.
                         </Text>
-                        <Text className="text-xs text-gray-500 mt-1">
-                            1 ⭐ கிடைக்கும்
-                        </Text>
-                    </View>
-                )}
-                ListEmptyComponent={
-                    <Text className="text-sm text-gray-400 mt-8">
-                        இந்த நிலைக்கு மொடியூல்கள் இன்னும் இல்லை.
-                    </Text>
-                }
-            />
-        </View>
+                    }
+                />
+            </View>
+        </ImageBackground>
     );
 }
+
+const styles = StyleSheet.create({
+    bg: {
+        flex: 1,
+    },
+    overlay: {
+        ...StyleSheet.absoluteFillObject,
+        backgroundColor: 'rgba(255,255,255,0.15)', // adjust or remove for brightness
+    },
+});
