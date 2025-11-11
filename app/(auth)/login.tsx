@@ -116,6 +116,7 @@ export default function LoginScreen() {
                             onPress={handleSignIn}
                             disabled={isLoading}
                             className="mt-8"
+                            scheme="dark"
                         />
 
                         {isLoading ? (
