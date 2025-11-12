@@ -47,6 +47,14 @@ export default function AppTabsLayout() {
                         ),
                     }}
                 />
+                <Tabs.Screen
+                    name="letters"
+                    options={{
+                        href: null,            // hide from tab bar
+                        headerShown: false,    // hide Tabs header for this route
+                    }}
+                />
+
 
                 <Tabs.Screen
                     name="profile"

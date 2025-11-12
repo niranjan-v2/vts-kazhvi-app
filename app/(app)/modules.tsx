@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { useSessionStore } from '../../store/session';
 import { Redirect, Link } from 'expo-router';                 // ⬅️ add Link
-import Button from '../../components/ui/Button';               // ⬅️ use your existing Button
+import Button from '../../components/ui/Button';
 
 const MODULES_BG = require('../../assets/images/modules_bg.png');
 
@@ -50,7 +50,6 @@ export default function ModulesScreen() {
                     <Link href="/(app)/letters" asChild>
                         <Button
                             label="தமிழ் எழுத்துக்கள்"
-                            scheme="green"
                             className="mb-4"
                         />
                     </Link>
