@@ -16,7 +16,7 @@ import { useRouter, Redirect } from 'expo-router';
 import TextField from '../../components/ui/TextField';
 import Button from '../../components/ui/Button';
 import { useSessionStore } from '../../store/session';
-import { signInWithUsernamePassword } from '../../lib/auth'; // ⬅️ changed
+import { signInWithUsernamePassword } from '../../lib/auth';
 
 export default function LoginScreen() {
     const router = useRouter();
@@ -24,7 +24,7 @@ export default function LoginScreen() {
     const user = useSessionStore((s) => s.user);
     const setUser = useSessionStore((s) => s.setUser);
 
-    const [username, setUsername] = useState(''); // ⬅️ changed
+    const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -33,14 +33,14 @@ export default function LoginScreen() {
     }
 
     async function handleSignIn() {
-        if (!username || !password) { // ⬅️ changed
+        if (!username || !password) {
             Alert.alert('Missing info', 'Please enter username and password.');
             return;
         }
 
         setIsLoading(true);
 
-        const result = await signInWithUsernamePassword(username.trim(), password); // ⬅️ changed
+        const result = await signInWithUsernamePassword(username.trim(), password);
 
         if ('error' in result) {
             setIsLoading(false);
@@ -94,9 +94,9 @@ export default function LoginScreen() {
 
                         <View className="w-full space-y-4">
                             <TextField
-                                label="Username"              // ⬅️ changed
-                                value={username}              // ⬅️ changed
-                                onChangeText={setUsername}    // ⬅️ changed
+                                label="Username"
+                                value={username}
+                                onChangeText={setUsername}
                                 autoCapitalize="none"
                                 autoCorrect={false}
                                 placeholder="firstname.lastname"

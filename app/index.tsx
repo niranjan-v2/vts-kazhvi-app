@@ -9,5 +9,5 @@ export default function IndexRedirect() {
         return <Redirect href="/(app)/modules" />;
     }
 
-    return <Redirect href="/(auth)/login" />;
+    return <Redirect href="/info" />;
 }
