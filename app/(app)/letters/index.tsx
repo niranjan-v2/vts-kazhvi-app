@@ -59,7 +59,7 @@ export default function LettersLanding() {
                                 asChild
                             >
                                 <TouchableOpacity activeOpacity={0.8}>
-                                    <View className="bg-[#20BFA9] rounded-md px-2 py-3 self-center">
+                                    <View className="bg-[#3F51B5] rounded-md px-2 py-3 self-center">
                                         <Text className="text-[#FFFFFF] text-[12.2px] font-bold text-center">
                                             {item.label}
                                         </Text>

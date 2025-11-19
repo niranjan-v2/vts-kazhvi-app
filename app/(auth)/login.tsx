@@ -1,3 +1,4 @@
+// app/(auth)/login.tsx
 import React, { useState } from 'react';
 import {
     View,
@@ -15,7 +16,7 @@ import { useRouter, Redirect } from 'expo-router';
 import TextField from '../../components/ui/TextField';
 import Button from '../../components/ui/Button';
 import { useSessionStore } from '../../store/session';
-import { signInWithEmailPassword } from '../../lib/auth';
+import { signInWithUsernamePassword } from '../../lib/auth'; // ⬅️ changed
 
 export default function LoginScreen() {
     const router = useRouter();
@@ -23,7 +24,7 @@ export default function LoginScreen() {
     const user = useSessionStore((s) => s.user);
     const setUser = useSessionStore((s) => s.setUser);
 
-    const [email, setEmail] = useState('');
+    const [username, setUsername] = useState(''); // ⬅️ changed
     const [password, setPassword] = useState('');
     const [isLoading, setIsLoading] = useState(false);
 
@@ -32,14 +33,14 @@ export default function LoginScreen() {
     }
 
     async function handleSignIn() {
-        if (!email || !password) {
-            Alert.alert('Missing info', 'Please enter email and password.');
+        if (!username || !password) { // ⬅️ changed
+            Alert.alert('Missing info', 'Please enter username and password.');
             return;
         }
 
         setIsLoading(true);
 
-        const result = await signInWithEmailPassword(email.trim(), password);
+        const result = await signInWithUsernamePassword(username.trim(), password); // ⬅️ changed
 
         if ('error' in result) {
             setIsLoading(false);
@@ -88,17 +89,17 @@ export default function LoginScreen() {
                             Western Australia
                         </Text>
                         <Text className="text-base text-gray-600 mb-8 text-center">
-                            Sign in with your registered email address and password given by school faculty.
+                            Sign in with your username and password given by school faculty.
                         </Text>
 
                         <View className="w-full space-y-4">
                             <TextField
-                                label="Email"
-                                value={email}
-                                onChangeText={setEmail}
+                                label="Username"              // ⬅️ changed
+                                value={username}              // ⬅️ changed
+                                onChangeText={setUsername}    // ⬅️ changed
                                 autoCapitalize="none"
-                                keyboardType="email-address"
-                                placeholder="student@example.com"
+                                autoCorrect={false}
+                                placeholder="firstname.lastname"
                             />
 
                             <TextField
@@ -117,6 +118,7 @@ export default function LoginScreen() {
                             disabled={isLoading}
                             className="mt-8"
                             scheme="dark"
+                            rounded={false}
                         />
 
                         {isLoading ? (
