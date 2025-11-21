@@ -28,6 +28,7 @@ export default function AppTabsLayout() {
                         backgroundColor: '#ffffff',
                         borderTopColor: '#e5e7eb',
                     },
+                    tabBarIconStyle: { marginBottom: -4,},
                 }}
             >
                 <Tabs.Screen
@@ -35,7 +36,10 @@ export default function AppTabsLayout() {
                     options={{
                         title: 'மொடியூல்கள்',
                         tabBarLabel: ({ color }) => (
-                            <Text style={{ color, fontSize: 12 }}>மொடியூல்கள்</Text>
+                            <Text style={{ color, fontSize: 12, textAlign: 'center' }}>
+                                மொடியூல்கள்{'\n'}
+                                <Text style={{ fontSize: 10 }}>(Modules)</Text>
+                            </Text>
                         ),
                         headerTitle: 'மொடியூல்கள்',
                         tabBarIcon: ({ color, focused }) => (
@@ -54,17 +58,18 @@ export default function AppTabsLayout() {
                         headerShown: false,    // hide Tabs header for this route
                     }}
                 />
-
-
                 <Tabs.Screen
                     name="profile"
                     options={{
                         title: 'சுயவிவரம்',
                         tabBarLabel: ({ color }) => (
-                            <Text style={{ color, fontSize: 12 }}>சுயவிவரம்</Text>
+                            <Text style={{ color, fontSize: 12, textAlign: 'center' }}>
+                                சுயவிவரம்{'\n'}
+                                <Text style={{ fontSize: 10 }}>(Profile)</Text>
+                            </Text>
                         ),
                         headerTitle: 'சுயவிவரம்',
-                        tabBarIcon: ({color, focused}) => (
+                        tabBarIcon: ({ color, focused }) => (
                             <FontAwesome
                                 name="user"
                                 size={22}
