@@ -11,8 +11,8 @@ const CARD_AYUTH = require('../../../assets/images/eluthukkal-banner-4.png');
 const MODULES_BG = require('../../../assets/images/modules_bg.png');
 
 const ITEMS = [
-    {key: 'uyir', label: 'உயிரெழுத்துகள்', banner: CARD_UYIR},
-    {key: 'mei', label: 'மெய்யெழுத்துகள்', banner: CARD_MEI},
+    {key: 'uyir', label: 'உயிர் எழுத்துகள்', banner: CARD_UYIR},
+    {key: 'mei', label: 'மெய் எழுத்துகள்', banner: CARD_MEI},
     {key: 'uyirmei', label: 'உயிர்மெய் எழுத்துகள்', banner: CARD_UYIRMEI},
     {key: 'ayudha', label: 'ஆய்த எழுத்து', banner: CARD_AYUTH},
 ];
