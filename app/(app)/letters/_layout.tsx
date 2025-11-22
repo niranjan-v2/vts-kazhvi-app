@@ -54,6 +54,12 @@ export default function LettersLayout() {
                     return { headerTitle: title };
                 }}
             />
+            <Stack.Screen
+                name="uyir/[glyph]"
+                options={{
+                    headerTitle: 'உயிர் எழுத்துகள்',
+                }}
+            />
         </Stack>
     );
 }

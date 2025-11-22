@@ -10,7 +10,7 @@ import {
     TouchableOpacity,
     Dimensions,
 } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 
 const MODULES_BG = require('../../../assets/images/modules_bg.png');
 // For now, reuse the same banner image for each Uyir tile
@@ -22,6 +22,7 @@ const GUTTER = 12;
 const COLS = 3;
 const ITEM_WIDTH =
     (SCREEN_WIDTH - SIDE_PADDING * 2 - GUTTER * (COLS - 1)) / COLS;
+const router = useRouter();
 
 // 12 Uyir letters
 const UYIR_ITEMS = [
@@ -75,7 +76,12 @@ export default function LetterTypeScreen() {
                                 activeOpacity={0.85}
                                 style={{ width: ITEM_WIDTH }}
                                 onPress={() => {
-                                    // TODO: later: handle tap on individual Uyir letter
+                                    if (safeType === 'uyir') {
+                                        router.push({
+                                            pathname: '/(app)/letters/uyir/[glyph]',
+                                            params: { glyph: item.key },
+                                        });
+                                    }
                                 }}
                             >
                                 <Image
