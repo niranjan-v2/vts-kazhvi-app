@@ -1,3 +1,4 @@
+// app/(app)/letters/uyir/[glyph].tsx
 import React, { useEffect, useMemo, useState } from 'react';
 import {
     View,
@@ -5,18 +6,20 @@ import {
     StyleSheet,
     ImageBackground,
     TouchableOpacity,
+    Image,
 } from 'react-native';
 import { useLocalSearchParams } from 'expo-router';
 import { Audio } from 'expo-av';
 import { Ionicons } from '@expo/vector-icons';
 
-const MODULES_BG = require('../../../../assets/images/modules_bg.png');
+const MODULES_BG = require('../../../../assets/images/varisai_bg.png');
 
 // Data for அ வரிசை
 type AWord = {
     key: string;
-    ta: string; // Tamil word
-    audio: any; // require(...) for mp3
+    ta: string;    // Tamil word
+    audio: any;    // require(...) for mp3
+    image: any;    // require(...) for png
 };
 
 const A_VARISAI: AWord[] = [
@@ -24,21 +27,25 @@ const A_VARISAI: AWord[] = [
         key: 'amma',
         ta: 'அம்மா',
         audio: require('../../../../assets/audio/a-varisai/amma.mp3'),
+        image: require('../../../../assets/images/a-varisai/amma.png'),
     },
     {
         key: 'arai',
         ta: 'அறை',
         audio: require('../../../../assets/audio/a-varisai/arai.mp3'),
+        image: require('../../../../assets/images/a-varisai/arai.png'),
     },
     {
         key: 'arasan',
         ta: 'அரசன்',
         audio: require('../../../../assets/audio/a-varisai/arasan.mp3'),
+        image: require('../../../../assets/images/a-varisai/arasan.png'),
     },
     {
         key: 'aruvi',
         ta: 'அருவி',
         audio: require('../../../../assets/audio/a-varisai/aruvi.mp3'),
+        image: require('../../../../assets/images/a-varisai/aruvi.png'),
     },
 ];
 
@@ -94,7 +101,7 @@ export default function UyirWordScreen() {
 
     const handleNext = () => {
         if (!hasMoved) setHasMoved(true);
-        setIndex((prev) => (prev + 1) % words.length); // loop back to first
+        setIndex((prev) => (prev + 1) % words.length); // loop
     };
 
     const handlePrev = () => {
@@ -108,16 +115,19 @@ export default function UyirWordScreen() {
         <ImageBackground source={MODULES_BG} style={styles.bg} resizeMode="cover">
             <View style={styles.overlay} pointerEvents="none" />
             <View style={styles.container}>
-                {/* Big card area (placeholder for picture like "அம்மா") */}
+                {/* Big card area with real illustration */}
                 <View style={styles.card}>
                     {/* Bubble with அ in top-right corner */}
                     <View style={styles.letterBubble}>
                         <Text style={styles.letterBubbleText}>அ</Text>
                     </View>
 
-                    {/* Placeholder illustration area – you can replace with an Image later */}
-                    <View style={styles.illustration}>
-                        <Text style={styles.illustrationText}>{current.ta}</Text>
+                    {/* Illustration image */}
+                    <View style={styles.illustrationWrapper}>
+                        <Image
+                            source={current.image}
+                            style={styles.illustrationImage}
+                        />
                     </View>
                 </View>
 
@@ -137,7 +147,7 @@ export default function UyirWordScreen() {
                             <Ionicons name="arrow-back" size={24} color="#fff" />
                         </TouchableOpacity>
                     ) : (
-                        <View style={{ width: 48 }} /> // spacer so next button stays right-aligned
+                        <View style={{ width: 48 }} /> // spacer so next button stays right
                     )}
 
                     <TouchableOpacity
@@ -163,7 +173,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 16,
         paddingTop: 16,
-        paddingBottom: 24,
+        paddingBottom: 60,
     },
     card: {
         flex: 1,
@@ -192,23 +202,24 @@ const styles = StyleSheet.create({
         fontWeight: '800',
         color: '#ffd966',
     },
-    illustration: {
+    illustrationWrapper: {
         width: '100%',
         aspectRatio: 4 / 3,
         borderRadius: 24,
+        overflow: 'hidden',
         backgroundColor: '#b3e5fc',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    illustrationText: {
-        fontSize: 28,
-        fontWeight: '700',
-        color: '#0b4f6c',
+    illustrationImage: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'contain',
     },
     wordPill: {
         marginTop: 16,
         borderRadius: 999,
-        backgroundColor: '#22c55e', // green
+        backgroundColor: '#22c55e',
         paddingVertical: 12,
         paddingHorizontal: 32,
         alignSelf: 'center',
