@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
     wordPill: {
         marginTop: 16,
         borderRadius: 999,
-        backgroundColor: '#22c55e',
+        backgroundColor: '#4867B9FF',
         paddingVertical: 12,
         paddingHorizontal: 32,
         alignSelf: 'center',
