@@ -77,6 +77,14 @@ export default function AppTabsLayout() {
                         ),
                     }}
                 />
+                {/* Hidden route: writing practice */}
+                <Tabs.Screen
+                    name="writing"
+                    options={{
+                        href: null,
+                        headerShown: false,
+                    }}
+                />
             </Tabs>
         </ProtectedTabs>
     );

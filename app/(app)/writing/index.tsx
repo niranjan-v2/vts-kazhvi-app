@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import { Svg, Polyline } from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
+import Slider from '@react-native-community/slider';
 
 const MODULES_BG = require('../../../assets/images/modules_bg.png');
 const TRACE_A = require('../../../assets/images/traceable/a.png');
@@ -98,27 +99,22 @@ export default function WritingPracticeScreen() {
 
             <View style={styles.container}>
                 {/* Top thickness controls (3 levels) */}
-                <View style={styles.thicknessBar}>
-                    {[3, 6, 10].map((w) => (
-                        <Pressable
-                            key={w}
-                            onPress={() => setStrokeWidth(w)}
-                            style={[
-                                styles.thicknessSegment,
-                                w === strokeWidth && styles.thicknessActive,
-                            ]}
-                        >
-                            <View
-                                style={{
-                                    height: w,
-                                    borderRadius: 999,
-                                    backgroundColor: '#16a34a',
-                                    width: '65%',
-                                }}
-                            />
-                        </Pressable>
-                    ))}
+                {/* Thickness slider */}
+                <View style={styles.thicknessRow}>
+                    <Text style={styles.thicknessLabel}>கோடு தடிமன்</Text>
+                    <Slider
+                        style={styles.thicknessSlider}
+                        minimumValue={2}
+                        maximumValue={16}
+                        step={1}
+                        value={strokeWidth}
+                        minimumTrackTintColor="#16a34a"
+                        maximumTrackTintColor="rgba(148,163,184,0.5)"
+                        thumbTintColor="#22c55e"
+                        onValueChange={(v) => setStrokeWidth(v)}
+                    />
                 </View>
+
 
                 {/* Color chips */}
                 <View style={styles.colorRow}>
@@ -223,23 +219,20 @@ const styles = StyleSheet.create({
         paddingTop: 16,
         paddingBottom: 24,
     },
-    thicknessBar: {
+    thicknessRow: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 12,
-        paddingHorizontal: 12,
-    },
-    thicknessSegment: {
-        flex: 1,
-        marginHorizontal: 4,
-        paddingVertical: 6,
-        borderRadius: 999,
-        backgroundColor: 'rgba(248,250,252,0.8)',
         alignItems: 'center',
-        justifyContent: 'center',
+        paddingHorizontal: 8,
+        marginBottom: 12,
     },
-    thicknessActive: {
-        backgroundColor: 'rgba(34,197,94,0.25)',
+    thicknessLabel: {
+        fontSize: 14,
+        fontWeight: '500',
+        color: '#0f172a',
+    },
+    thicknessSlider: {
+        flex: 1,
+        marginLeft: 12,
     },
     colorRow: {
         flexDirection: 'row',
