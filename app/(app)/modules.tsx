@@ -8,7 +8,7 @@ import {
     StyleSheet,
 } from 'react-native';
 import { useSessionStore } from '../../store/session';
-import { Redirect, Link } from 'expo-router';                 // ⬅️ add Link
+import { Redirect, Link } from 'expo-router';
 import Button from '../../components/ui/Button';
 
 const MODULES_BG = require('../../assets/images/modules_bg.png');
@@ -25,7 +25,6 @@ const SAMPLE_MODULES: Record<string, Array<{ id: string; titleTa: string }>> = {
 
 function isLevelOneOrAbove(level?: string | null) {
     if (!level) return false;
-    // Treat any "Level-X" where X >= 1 as eligible
     const m = /Level-(\d+)/i.exec(level);
     return !!m && Number(m[1]) >= 1;
 }
@@ -47,12 +46,25 @@ export default function ModulesScreen() {
                 </Text>
 
                 {isLevelOneOrAbove(user.level) ? (
-                    <Link href="/(app)/letters" asChild>
-                        <Button
-                            label="தமிழ் எழுத்துக்கள்"
-                            className="mb-4"
-                        />
-                    </Link>
+                    <>
+                        {/* Existing Tamil letters button */}
+                        <Link href="/(app)/letters" asChild>
+                            <Button
+                                label="தமிழ் எழுத்துக்கள்"
+                                scheme="dark"
+                                className="mb-3"
+                            />
+                        </Link>
+
+                        {/* NEW: எழுதி பழகு button */}
+                        <Link href="/(app)/writing" asChild>
+                            <Button
+                                label="எழுதி பழகு"
+                                scheme="dark"
+                                className="mb-4"
+                            />
+                        </Link>
+                    </>
                 ) : null}
 
                 <FlatList
