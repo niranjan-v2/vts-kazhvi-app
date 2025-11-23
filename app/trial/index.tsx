@@ -69,7 +69,11 @@ export default function TrialUyirScreen() {
                             activeOpacity={0.85}
                             style={{ width: ITEM_WIDTH }}
                             onPress={() => {
-                                if (index >= 4) {
+                                if (index === 0) {
+                                    // First letter (அ) → trial அ வரிசை screen
+                                    router.push('/trial/a-varisai');
+                                } else if (index >= 4) {
+                                    // From 5th letter onwards → show login alert
                                     Alert.alert(
                                         'Login required',
                                         'மீதமுள்ள எழுத்துகளை பார்க்க உள்நுழைக.',
@@ -84,7 +88,7 @@ export default function TrialUyirScreen() {
                                         ]
                                     );
                                 } else {
-                                    // 1–4 letters: free trial (no alert for now)
+                                    // Letters 2–4 in trial: currently do nothing (you can add more trial behaviour later)
                                 }
                             }}
                         >
@@ -98,6 +102,7 @@ export default function TrialUyirScreen() {
                             />
                         </TouchableOpacity>
                     )}
+
                 />
             </View>
         </ImageBackground>
