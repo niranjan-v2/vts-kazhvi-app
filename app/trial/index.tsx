@@ -11,6 +11,7 @@ import {
     TouchableOpacity,
     Alert,
 } from 'react-native';
+import { useRouter } from "expo-router";
 
 const MODULES_BG = require('../../assets/images/modules_bg.png');
 const CARD_UYIR = require('../../assets/images/eluthukkal-banner-1.png');
@@ -39,6 +40,8 @@ const UYIR_ITEMS = [
 ];
 
 export default function TrialUyirScreen() {
+    const router  = useRouter();
+
     return (
         <ImageBackground source={MODULES_BG} style={styles.bg} resizeMode="cover">
             <View style={styles.overlay} pointerEvents="none" />
@@ -66,15 +69,22 @@ export default function TrialUyirScreen() {
                             activeOpacity={0.85}
                             style={{ width: ITEM_WIDTH }}
                             onPress={() => {
-                                // Only from 5th letter (index 4 and above) show the lock alert
                                 if (index >= 4) {
                                     Alert.alert(
                                         'Login required',
-                                        'மீதமுள்ள எழுத்துகளை பயிற்சி செய்ய உள்நுழைக.'
+                                        'மீதமுள்ள எழுத்துகளை பார்க்க உள்நுழைக.',
+                                        [
+                                            { text: 'ரத்து செய்', style: 'cancel' },
+                                            {
+                                                text: 'Login',
+                                                onPress: () => {
+                                                    router.push('/(auth)/login');
+                                                },
+                                            },
+                                        ]
                                     );
                                 } else {
-                                    // First 4 letters – free trial behaviour
-                                    // (for now: no alert; later you can navigate to a trial detail screen)
+                                    // 1–4 letters: free trial (no alert for now)
                                 }
                             }}
                         >
