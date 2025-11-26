@@ -37,8 +37,6 @@ const UYIR_ITEMS = [
     { key: 'au', glyph: 'ஔ' },
 ];
 
-// 🔴 dynamic require(..${item.key}.png) does NOT work.
-// ✅ use a static map instead:
 const UYIR_IMAGES: Record<string, any> = {
     a: require('../../../assets/images/uyir-eluthukal/a.png'),
     aa: require('../../../assets/images/uyir-eluthukal/aa.png'),
