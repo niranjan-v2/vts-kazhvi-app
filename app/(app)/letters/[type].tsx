@@ -13,8 +13,6 @@ import {
 import { useLocalSearchParams, useRouter } from 'expo-router';
 
 const MODULES_BG = require('../../../assets/images/modules_bg.png');
-// For now, reuse the same banner image for each Uyir tile
-const CARD_UYIR = require('../../../assets/images/eluthukkal-banner-1.png');
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
 const SIDE_PADDING = 16;
@@ -22,7 +20,6 @@ const GUTTER = 12;
 const COLS = 3;
 const ITEM_WIDTH =
     (SCREEN_WIDTH - SIDE_PADDING * 2 - GUTTER * (COLS - 1)) / COLS;
-const router = useRouter();
 
 // 12 Uyir letters
 const UYIR_ITEMS = [
@@ -40,6 +37,23 @@ const UYIR_ITEMS = [
     { key: 'au', glyph: 'ஔ' },
 ];
 
+// 🔴 dynamic require(..${item.key}.png) does NOT work.
+// ✅ use a static map instead:
+const UYIR_IMAGES: Record<string, any> = {
+    a: require('../../../assets/images/uyir-eluthukal/a.png'),
+    aa: require('../../../assets/images/uyir-eluthukal/aa.png'),
+    i: require('../../../assets/images/uyir-eluthukal/i.png'),
+    ii: require('../../../assets/images/uyir-eluthukal/ii.png'),
+    u: require('../../../assets/images/uyir-eluthukal/u.png'),
+    uu: require('../../../assets/images/uyir-eluthukal/uu.png'),
+    e: require('../../../assets/images/uyir-eluthukal/e.png'),
+    ee: require('../../../assets/images/uyir-eluthukal/ee.png'),
+    ai: require('../../../assets/images/uyir-eluthukal/ai.png'),
+    o: require('../../../assets/images/uyir-eluthukal/o.png'),
+    oo: require('../../../assets/images/uyir-eluthukal/oo.png'),
+    au: require('../../../assets/images/uyir-eluthukal/au.png'),
+};
+
 function getItemsForType(type: string) {
     if (type === 'uyir') return UYIR_ITEMS;
     // TODO: later handle mei/uyirmei/ayudha
@@ -48,6 +62,7 @@ function getItemsForType(type: string) {
 
 export default function LetterTypeScreen() {
     const { type } = useLocalSearchParams<{ type?: string }>();
+    const router = useRouter(); // ✅ hook must be inside the component
     const safeType = (type ?? '').toString();
 
     const items = useMemo(() => getItemsForType(safeType), [safeType]);
@@ -71,29 +86,32 @@ export default function LetterTypeScreen() {
                             justifyContent: 'space-between',
                             marginBottom: 16,
                         }}
-                        renderItem={({ item }) => (
-                            <TouchableOpacity
-                                activeOpacity={0.85}
-                                style={{ width: ITEM_WIDTH }}
-                                onPress={() => {
-                                    if (safeType === 'uyir') {
+                        renderItem={({ item }) => {
+                            const imgSource = UYIR_IMAGES[item.key];
+                            if (!imgSource) return null; // safety
+
+                            return (
+                                <TouchableOpacity
+                                    activeOpacity={0.85}
+                                    style={{ width: ITEM_WIDTH }}
+                                    onPress={() => {
                                         router.push({
                                             pathname: '/(app)/letters/uyir/[glyph]',
                                             params: { glyph: item.key },
                                         });
-                                    }
-                                }}
-                            >
-                                <Image
-                                    source={CARD_UYIR}
-                                    style={{
-                                        width: ITEM_WIDTH,
-                                        height: ITEM_WIDTH,
-                                        resizeMode: 'contain',
                                     }}
-                                />
-                            </TouchableOpacity>
-                        )}
+                                >
+                                    <Image
+                                        source={imgSource}
+                                        style={{
+                                            width: ITEM_WIDTH,
+                                            height: ITEM_WIDTH,
+                                            resizeMode: 'contain',
+                                        }}
+                                    />
+                                </TouchableOpacity>
+                            );
+                        }}
                     />
                 ) : (
                     <Text style={styles.placeholder}>

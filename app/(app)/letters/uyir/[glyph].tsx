@@ -49,9 +49,37 @@ const A_VARISAI: AWord[] = [
     },
 ];
 
+const AA_VARISAI: AWord[] = [
+    {
+        key: 'aagayam',
+        ta: 'ஆகாயம்',
+        audio: require('../../../../assets/audio/aa-varisai/aagayam.mp3'),
+        image: require('../../../../assets/images/aa-varisai/aagayam.png'),
+    },
+    {
+        key: 'aamai',
+        ta: 'ஆமை',
+        audio: require('../../../../assets/audio/aa-varisai/aamai.mp3'),
+        image: require('../../../../assets/images/aa-varisai/aamai.png'),
+    },
+    {
+        key: 'aasiriyar',
+        ta: 'ஆசிரியர்',
+        audio: require('../../../../assets/audio/aa-varisai/aasiriyar.mp3'),
+        image: require('../../../../assets/images/aa-varisai/aasiriyar.png'),
+    },
+    {
+        key: 'aatrangarai',
+        ta: 'ஆற்றங்கரை',
+        audio: require('../../../../assets/audio/aa-varisai/aatrangarai.mp3'),
+        image: require('../../../../assets/images/aa-varisai/aatrangarai.png'),
+    },
+];
+
 // Later we can add other series, for now only அ வரிசை
 function getWordSetForGlyph(glyphKey: string): AWord[] {
     if (glyphKey === 'a') return A_VARISAI;
+    else if (glyphKey === 'aa') return AA_VARISAI;
     return [];
 }
 
@@ -117,9 +145,8 @@ export default function UyirWordScreen() {
             <View style={styles.container}>
                 {/* Big card area with real illustration */}
                 <View style={styles.card}>
-                    {/* Bubble with அ in top-right corner */}
                     <View style={styles.letterBubble}>
-                        <Text style={styles.letterBubbleText}>அ</Text>
+                        <Text style={styles.letterBubbleText}>{current.ta[0]}</Text>
                     </View>
 
                     {/* Illustration image */}
