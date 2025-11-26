@@ -76,10 +76,38 @@ const AA_VARISAI: AWord[] = [
     },
 ];
 
+const I_VARISAI: AWord[] = [
+    {
+        key: 'idhayam',
+        ta: 'இதயம்',
+        audio: require('../../../../assets/audio/i-varisai/idhayam.mp3'),
+        image: require('../../../../assets/images/i-varisai/idhayam.png'),
+    },
+    {
+        key: 'ilai',
+        ta: 'இலை',
+        audio: require('../../../../assets/audio/i-varisai/ilai.mp3'),
+        image: require('../../../../assets/images/i-varisai/ilai.png'),
+    },
+    {
+        key: 'ilaneer',
+        ta: 'இளநீர்',
+        audio: require('../../../../assets/audio/i-varisai/ilaneer.mp3'),
+        image: require('../../../../assets/images/i-varisai/ilaneer.png'),
+    },
+    {
+        key: 'iravu',
+        ta: 'இரவு',
+        audio: require('../../../../assets/audio/i-varisai/iravu.mp3'),
+        image: require('../../../../assets/images/i-varisai/iravu.png'),
+    },
+];
+
 // Later we can add other series, for now only அ வரிசை
 function getWordSetForGlyph(glyphKey: string): AWord[] {
     if (glyphKey === 'a') return A_VARISAI;
     else if (glyphKey === 'aa') return AA_VARISAI;
+    else if(glyphKey === 'i') return I_VARISAI;
     return [];
 }
 
