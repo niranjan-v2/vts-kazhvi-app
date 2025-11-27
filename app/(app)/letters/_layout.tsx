@@ -30,7 +30,7 @@ export default function LettersLayout() {
             <Stack.Screen
                 name="index"
                 options={{
-                    headerTitle: 'தமிழ் எழுத்துக்கள்',
+                    headerTitle: 'தமிழ் எழுத்துகள்',
                 }}
             />
 

@@ -59,7 +59,7 @@ export default function ModulesScreen() {
                         {/* Existing Tamil letters button */}
                         <Link href="/(app)/letters" asChild>
                             <Button
-                                label="தமிழ் எழுத்துக்கள்"
+                                label="தமிழ் எழுத்துகள்"
                                 scheme="dark"
                                 className="mb-3"
                             />
@@ -68,7 +68,7 @@ export default function ModulesScreen() {
                         {/* NEW: எழுதி பழகு button */}
                         <Link href="/(app)/writing" asChild>
                             <Button
-                                label="எழுதி பழகு"
+                                label="எழுதிப்பழகு"
                                 scheme="dark"
                                 className="mb-4"
                             />

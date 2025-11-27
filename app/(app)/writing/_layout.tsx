@@ -11,7 +11,7 @@ export default function WritingLayout() {
         <Stack
             screenOptions={{
                 headerShown: true,
-                headerTitle: 'எழுதி பழகு',
+                headerTitle: 'எழுதிப்பழகு',
                 headerTitleAlign: 'center',
                 headerStyle: { backgroundColor: '#15803d' },
                 headerTintColor: '#ffffff',
