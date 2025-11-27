@@ -46,15 +46,23 @@ export default function ProfileScreen() {
                 </Text>
             </View>
 
-            <Button
-                label="வெளியேறு"
-                onPress={handleSignOut}
-                className="mt-8 bg-red-600"
-            />
+            <View className="mt-8">
+                <Button
+                    label="வெளியேறு"
+                    onPress={handleSignOut}
+                    className="bg-red-600"
+                />
+                <Text className="mt-1 text-xs text-gray-500 text-center">
+                    (Sign out)
+                </Text>
+            </View>
 
+
+            { /*
             <Text className="text-xs text-gray-400 mt-8">
                 ஆசிரியருக்கான அறிக்கை (reporting) வரும் கட்டங்களில் சேர்க்கப்படும்.
             </Text>
+            */ }
         </View>
     );
 }
