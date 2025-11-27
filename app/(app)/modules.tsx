@@ -15,12 +15,14 @@ const MODULES_BG = require('../../assets/images/modules_bg.png');
 
 // Placeholder module data…
 const SAMPLE_MODULES: Record<string, Array<{ id: string; titleTa: string }>> = {
+    /*
     'Level-1': [
         { id: 'l1-m1', titleTa: 'உயிரெழுத்து வினா' },
         { id: 'l1-m2', titleTa: 'மெய்யெழுத்து வினா' },
     ],
     'Level-2': [{ id: 'l2-m1', titleTa: 'இடைநிலை சொற்கள்' }],
     'Level-3': [{ id: 'l3-m1', titleTa: 'கடின சொற்கள்' }],
+     */
 };
 
 function isLevelOneOrAbove(level?: string | null) {
@@ -41,9 +43,16 @@ export default function ModulesScreen() {
             <View style={styles.overlay} />
 
             <View className="flex-1 p-4">
-                <Text className="text-lg font-semibold mb-3 text-gray-900">
-                    {user.level ?? ''} - மொடியூல்கள்
-                </Text>
+                <View className="mb-10 rounded-2xl bg-white/80 px-4 py-1 border border-emerald-100">
+                    <Text className="text-lg font-semibold text-gray-900">
+                        {user.level ?? ''} -  {
+                        user.level === 'Level-1' ? 'ஆரம்பநிலை' :
+                            user.level === 'Level-2' ? 'இடைநிலை' :
+                                user.level === 'Level-3' ? 'மேல்நிலை' : ''
+                    }
+                    </Text>
+                </View>
+
 
                 {isLevelOneOrAbove(user.level) ? (
                     <>
@@ -67,6 +76,7 @@ export default function ModulesScreen() {
                     </>
                 ) : null}
 
+                {/*
                 <FlatList
                     data={listForLevel}
                     keyExtractor={(item) => item.id}
@@ -84,6 +94,7 @@ export default function ModulesScreen() {
                         </Text>
                     }
                 />
+                */}
             </View>
         </ImageBackground>
     );
