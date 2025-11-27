@@ -80,7 +80,7 @@ export default function LoginScreen() {
                         />
 
                         <Text className="text-2xl font-bold text-green-900 mb-4">
-                            வள்ளுவன் தமிழ் பள்ளி
+                            வள்ளுவன் தமிழ்ப்பள்ளி
                         </Text>
                         <Text className="text-2xl font-bold text-green-900">
                             Valluvan Tamil School
@@ -128,7 +128,7 @@ export default function LoginScreen() {
                         ) : null}
 
                         <Text className="text-xs text-gray-400 mt-6 text-center">
-                            By signing in you agree to school policies.
+                            By signing in you agree to Valluvan Tamil School current policies.
                         </Text>
                     </View>
                 </ScrollView>
