@@ -290,7 +290,7 @@ const styles = StyleSheet.create({
         aspectRatio: 4 / 3,
         borderRadius: 24,
         overflow: 'hidden',
-        backgroundColor: '#b3e5fc',
+        backgroundColor: '#eff0f3',
     },
     traceImage: {
         width: '100%',
