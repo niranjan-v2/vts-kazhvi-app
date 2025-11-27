@@ -76,9 +76,9 @@ export default function TrialUyirScreen() {
                                     // From 5th letter onwards → show login alert
                                     Alert.alert(
                                         'Login required',
-                                        'மீதமுள்ள எழுத்துகளை பார்க்க உள்நுழைக.',
+                                        'The trial version has limited access. Log in to unlock full features.',
                                         [
-                                            { text: 'ரத்து செய்', style: 'cancel' },
+                                            { text: 'Cancel', style: 'cancel' },
                                             {
                                                 text: 'Login',
                                                 onPress: () => {
