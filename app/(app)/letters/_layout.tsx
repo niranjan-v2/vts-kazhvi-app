@@ -60,6 +60,12 @@ export default function LettersLayout() {
                     headerTitle: 'உயிர் எழுத்துகள்',
                 }}
             />
+            <Stack.Screen
+                name="mei/[glyph]"
+                options={{
+                    headerTitle: 'மெய் எழுத்துகள்',
+                }}
+            />
         </Stack>
     );
 }
