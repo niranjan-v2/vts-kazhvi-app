@@ -58,17 +58,18 @@ const MEI_ITEMS = [
     { key: 'n_s', glyph: 'ன' },
 ];
 
+// Uyir letter icons
 const UYIR_IMAGES: Record<string, any> = {
-    a:  require('../../../assets/images/uyir-eluthukal/a.png'),
+    a: require('../../../assets/images/uyir-eluthukal/a.png'),
     aa: require('../../../assets/images/uyir-eluthukal/aa.png'),
-    i:  require('../../../assets/images/uyir-eluthukal/i.png'),
+    i: require('../../../assets/images/uyir-eluthukal/i.png'),
     ii: require('../../../assets/images/uyir-eluthukal/ii.png'),
-    u:  require('../../../assets/images/uyir-eluthukal/u.png'),
+    u: require('../../../assets/images/uyir-eluthukal/u.png'),
     uu: require('../../../assets/images/uyir-eluthukal/uu.png'),
-    e:  require('../../../assets/images/uyir-eluthukal/e.png'),
+    e: require('../../../assets/images/uyir-eluthukal/e.png'),
     ee: require('../../../assets/images/uyir-eluthukal/ee.png'),
     ai: require('../../../assets/images/uyir-eluthukal/ai.png'),
-    o:  require('../../../assets/images/uyir-eluthukal/o.png'),
+    o: require('../../../assets/images/uyir-eluthukal/o.png'),
     oo: require('../../../assets/images/uyir-eluthukal/oo.png'),
     au: require('../../../assets/images/uyir-eluthukal/au.png'),
 };
@@ -96,7 +97,7 @@ const MEI_IMAGES: Record<string, any> = {
 
 function getItemsForType(type: string) {
     if (type === 'uyir') return UYIR_ITEMS;
-    if (type === 'mei')  return MEI_ITEMS;
+    if (type === 'mei') return MEI_ITEMS;
     // TODO: later handle uyirmei/ayudha
     return [];
 }
@@ -108,69 +109,77 @@ export default function LetterTypeScreen() {
 
     const items = useMemo(() => getItemsForType(safeType), [safeType]);
 
-    // Choose correct image map
-    const imageMap =
-        safeType === 'uyir' ? UYIR_IMAGES :
-            safeType === 'mei'  ? MEI_IMAGES :
-                {};
-
-    const isSupported = safeType === 'uyir' || safeType === 'mei';
+    if (items.length === 0) {
+        return (
+            <ImageBackground source={MODULES_BG} style={styles.bg} resizeMode="cover">
+                <View style={styles.overlay} pointerEvents="none" />
+                <View style={styles.container}>
+                    <Text style={styles.placeholder}>
+                        இந்த பிரிவு தற்போது தயாராகவில்லை.
+                    </Text>
+                </View>
+            </ImageBackground>
+        );
+    }
 
     return (
         <ImageBackground source={MODULES_BG} style={styles.bg} resizeMode="cover">
             <View style={styles.overlay} pointerEvents="none" />
 
             <View style={styles.container}>
-                {isSupported ? (
-                    <FlatList
-                        data={items}
-                        numColumns={COLS}
-                        keyExtractor={(item) => item.key}
-                        contentContainerStyle={{
-                            paddingHorizontal: SIDE_PADDING,
-                            paddingTop: 8,
-                            paddingBottom: 16,
-                        }}
-                        columnWrapperStyle={{
-                            justifyContent: 'space-between',
-                            marginBottom: 16,
-                        }}
-                        renderItem={({ item }) => {
-                            const imgSource = imageMap[item.key];
-                            if (!imgSource) return null;
+                <FlatList
+                    data={items}
+                    numColumns={COLS}
+                    keyExtractor={(item) => item.key}
+                    contentContainerStyle={{
+                        paddingHorizontal: SIDE_PADDING,
+                        paddingTop: 8,
+                        paddingBottom: 16,
+                    }}
+                    columnWrapperStyle={{
+                        justifyContent: 'space-between',
+                        marginBottom: 16,
+                    }}
+                    renderItem={({ item }) => {
+                        const imgSource =
+                            safeType === 'uyir'
+                                ? UYIR_IMAGES[item.key]
+                                : safeType === 'mei'
+                                    ? MEI_IMAGES[item.key]
+                                    : undefined;
 
-                            return (
-                                <TouchableOpacity
-                                    activeOpacity={0.85}
-                                    style={{ width: ITEM_WIDTH }}
-                                    onPress={() => {
-                                        if (safeType === 'uyir') {
-                                            // existing behaviour
-                                            router.push({
-                                                pathname: '/(app)/letters/uyir/[glyph]',
-                                                params: { glyph: item.key },
-                                            });
-                                        }
-                                        // For 'mei' we’ll add navigation later when detail screens exist
+                        if (!imgSource) return null;
+
+                        return (
+                            <TouchableOpacity
+                                activeOpacity={0.85}
+                                style={{ width: ITEM_WIDTH }}
+                                onPress={() => {
+                                    if (safeType === 'uyir') {
+                                        router.push({
+                                            pathname: '/(app)/letters/uyir/[glyph]',
+                                            params: { glyph: item.key },
+                                        });
+                                    } else if (safeType === 'mei') {
+                                        router.push({
+                                            pathname: '/(app)/letters/mei/[glyph]',
+                                            params: { glyph: item.key },
+                                        });
+                                    }
+                                }}
+                            >
+                                <Image
+                                    source={imgSource}
+                                    style={{
+                                        width: ITEM_WIDTH,
+                                        height: ITEM_WIDTH,
+                                        resizeMode: 'contain',
                                     }}
-                                >
-                                    <Image
-                                        source={imgSource}
-                                        style={{
-                                            width: ITEM_WIDTH,
-                                            height: ITEM_WIDTH,
-                                            resizeMode: 'contain',
-                                        }}
-                                    />
-                                </TouchableOpacity>
-                            );
-                        }}
-                    />
-                ) : (
-                    <Text style={styles.placeholder}>
-                        இந்த பிரிவு தற்போது தயாராகவில்லை.
-                    </Text>
-                )}
+                                />
+                            </TouchableOpacity>
+                        );
+                    }}
+                />
             </View>
         </ImageBackground>
     );
