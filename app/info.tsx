@@ -91,10 +91,8 @@ export default function InfoScreen() {
             </Text>
 
             <Text style={[styles.text, { marginTop: 12 }]}>
-                A team of volunteers with varying operational and academic experiences
-                run the school. The school adheres to the syllabus based on the
-                curriculum developed by NSW Federation of Tamil School Inc and the
-                teaching materials are prepared by VTS teachers.
+                The VTS app is developed to make learning Tamil more accessible, engaging,
+                and convenient for kids by using technology.
             </Text>
 
             {/* Animated Buttons */}
