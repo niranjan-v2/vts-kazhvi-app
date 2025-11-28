@@ -11,12 +11,14 @@ import {
     ScrollView,
     TouchableWithoutFeedback,
     Keyboard,
+    Pressable,
 } from 'react-native';
 import { useRouter, Redirect } from 'expo-router';
 import TextField from '../../components/ui/TextField';
 import Button from '../../components/ui/Button';
 import { useSessionStore } from '../../store/session';
 import { signInWithUsernamePassword } from '../../lib/auth';
+import Feather from '@expo/vector-icons/Feather';
 
 export default function LoginScreen() {
     const router = useRouter();
@@ -55,9 +57,34 @@ export default function LoginScreen() {
 
     return (
         <KeyboardAvoidingView
-            style={{ flex: 1, backgroundColor: 'white' }}
+            style={{ flex: 1, backgroundColor: 'white', position: 'relative' }}
             behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
+            {/* Info icon – top right */}
+            <View
+                style={{
+                    position: 'absolute',
+                    top: Platform.OS === 'ios' ? 60 : 30,
+                    left: 24,
+                    zIndex: 20,
+                }}
+            >
+                <Pressable
+                    hitSlop={10}
+                    onPress={() => router.push('/info')}
+                    style={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: 16,
+                        backgroundColor: '#e5e7eb', // gray-200
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <Feather name="arrow-left" size={18} color="#111827" />
+                </Pressable>
+            </View>
+
             <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
                 <ScrollView
                     contentContainerStyle={{
@@ -79,7 +106,7 @@ export default function LoginScreen() {
                             }}
                         />
 
-                        <Text className="text-2xl font-bold text-green-900 mb-4">
+                        <Text className="text-xl font-bold text-green-900 mb-4">
                             வள்ளுவன் தமிழ்ப்பள்ளி
                         </Text>
                         <Text className="text-2xl font-bold text-green-900">
