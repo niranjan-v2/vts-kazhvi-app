@@ -1,5 +1,7 @@
 // app/trial/_layout.tsx
 import { Stack } from 'expo-router';
+import {Text, View} from "react-native";
+import Entypo from "@expo/vector-icons/Entypo";
 
 export default function TrialLayout() {
     return (
@@ -14,10 +16,40 @@ export default function TrialLayout() {
             <Stack.Screen
                 name="modules"
                 options={{
-                    title: 'மொடியூல்கள் (Trial)',
+                    // Fancy header title: Tamil + small English
+                    headerStyle: {
+                        backgroundColor: '#e8e3e3', // subtle gray instead of pure white
+                    },
                     headerTitleAlign: 'center',
-                    headerStyle: { backgroundColor: '#ffffff' },
-                    headerTitleStyle: { fontWeight: '600' },
+                    headerTitle: () => (
+                        <View style={{
+                            flexDirection: 'row',
+                            alignItems: 'baseline',
+                            justifyContent: 'center'
+                        }}>
+                            <Text
+                                style={{
+                                    fontSize: 18,
+                                    fontWeight: '700',
+                                    color: '#111827',
+                                    textAlign: 'center',
+                                }}
+                            >
+                                நிலை
+                            </Text>
+                            <Text
+                                style={{
+                                    fontSize: 9.5,
+                                    color: '#6b7280',
+                                    textAlign: 'center',
+                                    marginTop: 2,
+                                    marginLeft: 3
+                                }}
+                            >
+                                (Level)
+                            </Text>
+                        </View>
+                    ),
                 }}
             />
 
