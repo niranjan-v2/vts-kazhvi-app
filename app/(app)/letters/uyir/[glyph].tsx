@@ -96,10 +96,10 @@ const I_VARISAI: AWord[] = [
         image: require('../../../../assets/images/i-varisai/ilaneer.png'),
     },
     {
-        key: 'iravu',
-        ta: 'இரவு',
-        audio: require('../../../../assets/audio/i-varisai/iravu.mp3'),
-        image: require('../../../../assets/images/i-varisai/iravu.png'),
+        key: 'irumal',
+        ta: 'இருமல்',
+        audio: require('../../../../assets/audio/i-varisai/irumal.mp3'),
+        image: require('../../../../assets/images/i-varisai/irumal.png'),
     },
 ];
 
