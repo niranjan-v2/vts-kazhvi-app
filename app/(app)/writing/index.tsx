@@ -13,7 +13,21 @@ import { Svg, Polyline } from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
 
 const MODULES_BG = require('../../../assets/images/modules_bg.png');
+
+// 🔤 All traceable images (filenames you mentioned)
 const TRACE_A = require('../../../assets/images/traceable/a.png');
+const TRACE_AA = require('../../../assets/images/traceable/aa.png');
+const TRACE_I = require('../../../assets/images/traceable/i.png');
+const TRACE_II = require('../../../assets/images/traceable/ii.png');
+const TRACE_U = require('../../../assets/images/traceable/u.png');
+const TRACE_UU = require('../../../assets/images/traceable/uu.png');
+const TRACE_E = require('../../../assets/images/traceable/e.png');
+const TRACE_EE = require('../../../assets/images/traceable/ee.png');
+const TRACE_O = require('../../../assets/images/traceable/o.png');
+const TRACE_OO = require('../../../assets/images/traceable/oo.png');
+const TRACE_AI = require('../../../assets/images/traceable/ai.png');
+const TRACE_OU = require('../../../assets/images/traceable/ou.png');
+const TRACE_AK = require('../../../assets/images/traceable/ak.png');
 
 type Point = { x: number; y: number };
 type DrawPath = { color: string; width: number; points: Point[] };
@@ -24,13 +38,21 @@ type LetterTrace = {
     traceImage: any;
 };
 
-// For now only அ; later you can add more letters here
+// ✅ Now supports all uyir + āytam
 const LETTERS: LetterTrace[] = [
-    {
-        key: 'a',
-        glyph: 'அ',
-        traceImage: TRACE_A,
-    },
+    { key: 'a', glyph: 'அ', traceImage: TRACE_A },
+    { key: 'aa', glyph: 'ஆ', traceImage: TRACE_AA },
+    { key: 'i', glyph: 'இ', traceImage: TRACE_I },
+    { key: 'ii', glyph: 'ஈ', traceImage: TRACE_II },
+    { key: 'u', glyph: 'உ', traceImage: TRACE_U },
+    { key: 'uu', glyph: 'ஊ', traceImage: TRACE_UU },
+    { key: 'e', glyph: 'எ', traceImage: TRACE_E },
+    { key: 'ee', glyph: 'ஏ', traceImage: TRACE_EE },
+    { key: 'ai', glyph: 'ஐ', traceImage: TRACE_AI },
+    { key: 'o', glyph: 'ஒ', traceImage: TRACE_O },
+    { key: 'oo', glyph: 'ஓ', traceImage: TRACE_OO },
+    { key: 'ou', glyph: 'ஔ', traceImage: TRACE_OU },
+    { key: 'ak', glyph: 'ஃ', traceImage: TRACE_AK }, // āytam
 ];
 
 export default function WritingPracticeScreen() {
@@ -46,7 +68,6 @@ export default function WritingPracticeScreen() {
         setPaths([]);
     }, [currentIndex]);
 
-    // 🔧 IMPORTANT: recreate PanResponder when color/width change
     const panResponder = useMemo(
         () =>
             PanResponder.create({
@@ -77,15 +98,15 @@ export default function WritingPracticeScreen() {
                 onPanResponderRelease: () => {},
                 onPanResponderTerminate: () => {},
             }),
-        [strokeColor, strokeWidth] // 👈 when these change, new strokes use new settings
+        [strokeColor, strokeWidth]
     );
 
     const handleNext = () => {
-        setCurrentIndex((prev) => (prev + 1) % LETTERS.length); // loops
+        setCurrentIndex((prev) => (prev + 1) % LETTERS.length);
     };
 
     const handlePrev = () => {
-        setCurrentIndex((prev) => (prev - 1 + LETTERS.length) % LETTERS.length); // loops
+        setCurrentIndex((prev) => (prev - 1 + LETTERS.length) % LETTERS.length);
     };
 
     const handleClear = () => {
@@ -122,11 +143,7 @@ export default function WritingPracticeScreen() {
 
                 {/* Color chips */}
                 <View style={styles.colorRow}>
-                    {[
-                        '#ef4444', // red
-                        '#6366f1', // indigo
-                        '#22c55e', // green
-                    ].map((c) => (
+                    {['#ef4444', '#6366f1', '#22c55e'].map((c) => (
                         <Pressable
                             key={c}
                             onPress={() => setStrokeColor(c)}

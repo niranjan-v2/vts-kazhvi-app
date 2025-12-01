@@ -53,7 +53,6 @@ export default function ModulesScreen() {
                     </Text>
                 </View>
 
-
                 {isLevelOneOrAbove(user.level) ? (
                     <>
                         {/* Existing Tamil letters button */}
