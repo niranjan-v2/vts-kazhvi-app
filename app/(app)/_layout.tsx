@@ -61,7 +61,7 @@ export default function AppTabsLayout() {
                                         textAlign: 'center',
                                     }}
                                 >
-                                    மொடியூல்கள்
+                                    நிலை
                                 </Text>
                                 <Text
                                     style={{
@@ -72,14 +72,14 @@ export default function AppTabsLayout() {
                                         marginLeft: 3
                                     }}
                                 >
-                                    (Modules)
+                                    (Level)
                                 </Text>
                             </View>
                         ),
                         tabBarLabel: ({ color }) => (
                             <Text style={{ color, fontSize: 12, textAlign: 'center' }}>
-                                மொடியூல்கள்{'\n'}
-                                <Text style={{ fontSize: 10 }}>(Modules)</Text>
+                                நிலை{'\n'}
+                                <Text style={{ fontSize: 10 }}>(Level)</Text>
                             </Text>
                         ),
                         tabBarIcon: ({ color, focused }) => (
