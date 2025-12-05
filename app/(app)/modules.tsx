@@ -72,6 +72,14 @@ export default function ModulesScreen() {
                                 className="mb-4"
                             />
                         </Link>
+
+                        <Link href="/(app)/days" asChild>
+                            <Button
+                                label="கிழமைகள்"
+                                scheme="dark"
+                                className="mb-4"
+                            />
+                        </Link>
                     </>
                 ) : null}
 
