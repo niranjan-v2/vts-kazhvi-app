@@ -46,7 +46,6 @@ export default function AppTabsLayout() {
                 <Tabs.Screen
                     name="modules"
                     options={{
-                        // Fancy header title: Tamil + small English
                         headerTitle: () => (
                             <View style={{
                                 flexDirection: 'row',
@@ -151,6 +150,13 @@ export default function AppTabsLayout() {
                 {/* Hidden route: writing practice */}
                 <Tabs.Screen
                     name="writing"
+                    options={{
+                        href: null,
+                        headerShown: false,
+                    }}
+                />
+                <Tabs.Screen
+                    name="days"
                     options={{
                         href: null,
                         headerShown: false,
