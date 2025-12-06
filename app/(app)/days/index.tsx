@@ -37,6 +37,10 @@ export default function DaysScreen() {
         setIndex((prev) => (prev + 1) % DAYS.length);
     };
 
+    const handlePrev = () => {
+        setIndex((prev) => (prev - 1 + DAYS.length) % DAYS.length);
+    };
+
     return (
         <ImageBackground source={MODULES_BG} style={styles.bg} resizeMode="cover">
             <View style={styles.overlay} />
@@ -63,11 +67,19 @@ export default function DaysScreen() {
                     <Text style={styles.dayPillText}>{currentDay.labelTa}</Text>
                 </View>
 
-                {/* Bottom-right next arrow like in the screenshot */}
+                {/* Bottom-right arrows */}
                 <View style={styles.bottomRow}>
                     <Pressable
-                        onPress={handleNext}
+                        onPress={handlePrev}
                         style={styles.nextButton}
+                        android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
+                    >
+                        <Ionicons name="arrow-back" size={26} color="#ffffff" />
+                    </Pressable>
+
+                    <Pressable
+                        onPress={handleNext}
+                        style={[styles.nextButton, { marginLeft: 16 }]}
                         android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
                     >
                         <Ionicons name="arrow-forward" size={26} color="#ffffff" />
@@ -174,7 +186,7 @@ const styles = StyleSheet.create({
     },
     bottomRow: {
         flexDirection: 'row',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-between',
         alignItems: 'center',
     },
     nextButton: {
