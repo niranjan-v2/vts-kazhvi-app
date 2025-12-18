@@ -1,35 +1,73 @@
 // app/(app)/days/index.tsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     View,
     Text,
     ImageBackground,
     StyleSheet,
     Pressable,
+    Image,
 } from 'react-native';
-import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { Audio } from 'expo-av';
 
 const MODULES_BG = require('../../../assets/images/modules_bg.png');
 
 type DayInfo = {
     key: string;
     labelTa: string;
+    image: any;
+    audio: any;
 };
 
 const DAYS: DayInfo[] = [
-    { key: 'sun', labelTa: 'ஞாயிறு' },
-    { key: 'mon', labelTa: 'திங்கள்' },
-    { key: 'tue', labelTa: 'செவ்வாய்' },
-    { key: 'wed', labelTa: 'புதன்' },
-    { key: 'thu', labelTa: 'வியாழன்' },
-    { key: 'fri', labelTa: 'வெள்ளி' },
-    { key: 'sat', labelTa: 'சனி' },
+    {
+        key: 'sun',
+        labelTa: 'ஞாயிறு',
+        image: require('../../../assets/images/kilamaigal/sunday.png'),
+        audio: require('../../../assets/audio/kilamaigal/sunday.mp3'),
+    },
+    {
+        key: 'mon',
+        labelTa: 'திங்கள்',
+        image: require('../../../assets/images/kilamaigal/monday.png'),
+        audio: require('../../../assets/audio/kilamaigal/monday.mp3'),
+    },
+    {
+        key: 'tue',
+        labelTa: 'செவ்வாய்',
+        image: require('../../../assets/images/kilamaigal/tuesday.png'),
+        audio: require('../../../assets/audio/kilamaigal/tuesday.mp3'),
+    },
+    {
+        key: 'wed',
+        labelTa: 'புதன்',
+        image: require('../../../assets/images/kilamaigal/wednesday.png'),
+        audio: require('../../../assets/audio/kilamaigal/wednesday.mp3'),
+    },
+    {
+        key: 'thu',
+        labelTa: 'வியாழன்',
+        image: require('../../../assets/images/kilamaigal/thursday.png'),
+        audio: require('../../../assets/audio/kilamaigal/thursday.mp3'),
+    },
+    {
+        key: 'fri',
+        labelTa: 'வெள்ளி',
+        image: require('../../../assets/images/kilamaigal/friday.png'),
+        audio: require('../../../assets/audio/kilamaigal/friday.mp3'),
+    },
+    {
+        key: 'sat',
+        labelTa: 'சனி',
+        image: require('../../../assets/images/kilamaigal/saturday.png'),
+        audio: require('../../../assets/audio/kilamaigal/saturday.mp3'),
+    },
 ];
 
 export default function DaysScreen() {
-    const router = useRouter();
     const [index, setIndex] = useState(0);
+    const [sound, setSound] = useState<Audio.Sound | null>(null);
 
     const currentDay = DAYS[index];
 
@@ -41,18 +79,77 @@ export default function DaysScreen() {
         setIndex((prev) => (prev - 1 + DAYS.length) % DAYS.length);
     };
 
+    // 🔊 Auto-play audio once whenever the page (day) changes
+    useEffect(() => {
+        let isCancelled = false;
+
+        const loadAndPlay = async () => {
+            try {
+                if (sound) {
+                    await sound.stopAsync();
+                    await sound.unloadAsync();
+                }
+
+                const { sound: newSound } = await Audio.Sound.createAsync(
+                    currentDay.audio
+                );
+
+                if (isCancelled) {
+                    await newSound.unloadAsync();
+                    return;
+                }
+
+                setSound(newSound);
+                await newSound.playAsync(); // plays once by default (no loop)
+            } catch (e) {
+                console.warn('Error playing audio', e);
+            }
+        };
+
+        loadAndPlay();
+
+        return () => {
+            isCancelled = true;
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [index]); // depend only on index so each page plays once
+
+    // Replay button / tap on card
+    const replayAudio = async () => {
+        try {
+            if (!sound) return;
+            await sound.stopAsync();
+            await sound.setPositionAsync(0);
+            await sound.playAsync();
+        } catch (e) {
+            console.warn('Error replaying audio', e);
+        }
+    };
+
+    // Cleanup on unmount
+    useEffect(() => {
+        return () => {
+            if (sound) {
+                sound.unloadAsync();
+            }
+        };
+    }, [sound]);
+
     return (
         <ImageBackground source={MODULES_BG} style={styles.bg} resizeMode="cover">
             <View style={styles.overlay} />
 
             <View style={styles.container}>
-                {/* Big card like reference UI */}
-                <View style={styles.card}>
+                {/* Big card – tap to replay audio */}
+                <Pressable style={styles.card} onPress={replayAudio}>
                     <View style={styles.cardInner}>
-                        {/* Placeholder for the day image */}
-                        <View style={styles.imagePlaceholder}>
-                            {/* TODO: Replace this placeholder with actual image */}
-                            <Text style={styles.imagePlaceholderText}>IMAGE</Text>
+                        {/* Square container so 1024x1024 images fit nicely */}
+                        <View style={styles.imageWrapper}>
+                            <Image
+                                source={currentDay.image}
+                                style={styles.dayImage}
+                                resizeMode="contain"
+                            />
                         </View>
 
                         {/* Bubble with step/day number */}
@@ -60,14 +157,25 @@ export default function DaysScreen() {
                             <Text style={styles.dayNumberText}>{index + 1}</Text>
                         </View>
                     </View>
-                </View>
+                </Pressable>
 
                 {/* Green pill with day name */}
                 <View style={styles.dayPill}>
                     <Text style={styles.dayPillText}>{currentDay.labelTa}</Text>
                 </View>
 
-                {/* Bottom-right arrows */}
+                {/* Small speaker button */}
+                <View style={{ alignItems: 'center', marginBottom: 16 }}>
+                    <Pressable
+                        onPress={replayAudio}
+                        style={styles.audioButton}
+                        android_ripple={{ color: 'rgba(0,0,0,0.1)' }}
+                    >
+                        <Ionicons name="volume-high" size={24} color="#ffffff" />
+                    </Pressable>
+                </View>
+
+                {/* Bottom arrows */}
                 <View style={styles.bottomRow}>
                     <Pressable
                         onPress={handlePrev}
@@ -100,26 +208,7 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingHorizontal: 16,
         paddingTop: 20,
-        paddingBottom: 24,
-    },
-    headerRow: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginBottom: 24,
-    },
-    headerIconButton: {
-        width: 36,
-        height: 36,
-        borderRadius: 18,
-        backgroundColor: 'rgba(0,0,0,0.25)',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    headerTitle: {
-        fontSize: 22,
-        fontWeight: '700',
-        color: '#ffffff',
+        paddingBottom: 60,
     },
     card: {
         flex: 1,
@@ -134,28 +223,28 @@ const styles = StyleSheet.create({
         width: '100%',
         aspectRatio: 4 / 3,
         borderRadius: 26,
-        backgroundColor: '#46c9ff',
+        backgroundColor: 'rgba(250,172,4,0.8)',
         overflow: 'hidden',
         justifyContent: 'center',
         alignItems: 'center',
         position: 'relative',
     },
-    imagePlaceholder: {
+    // NEW: square wrapper so 1024x1024 images don’t get zoomed awkwardly
+    imageWrapper: {
         width: '70%',
-        aspectRatio: 3 / 4,
+        aspectRatio: 1, // square
         borderRadius: 24,
-        backgroundColor: 'rgba(255,255,255,0.5)',
-        alignItems: 'center',
+        backgroundColor: 'rgba(255,255,255,0.4)',
         justifyContent: 'center',
+        alignItems: 'center',
     },
-    imagePlaceholderText: {
-        fontSize: 14,
-        fontWeight: '600',
-        color: '#6b7280',
+    dayImage: {
+        width: '100%',
+        height: '100%',
     },
     dayNumberBubble: {
         position: 'absolute',
-        right: 12,
+        right: 9,
         top: 12,
         width: 38,
         height: 38,
@@ -177,12 +266,21 @@ const styles = StyleSheet.create({
         paddingHorizontal: 40,
         paddingVertical: 10,
         elevation: 4,
-        marginBottom: 24,
+        marginBottom: 16,
     },
     dayPillText: {
         fontSize: 20,
         fontWeight: '700',
         color: '#ffffff',
+    },
+    audioButton: {
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        backgroundColor: '#169ea3',
+        alignItems: 'center',
+        justifyContent: 'center',
+        elevation: 4,
     },
     bottomRow: {
         flexDirection: 'row',
