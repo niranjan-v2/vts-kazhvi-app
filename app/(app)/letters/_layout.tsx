@@ -66,6 +66,12 @@ export default function LettersLayout() {
                     headerTitle: 'மெய் எழுத்துகள்',
                 }}
             />
+            <Stack.Screen
+                name="uyirmei/index"
+                options={{
+                    headerTitle: "உயிர்மெய் எழுத்துகள்",
+                }}
+            />
         </Stack>
     );
 }
