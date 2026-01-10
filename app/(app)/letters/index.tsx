@@ -1,7 +1,7 @@
 // app/(app)/letters/index.tsx
 import React from 'react';
 import {View, Text, Image, TouchableOpacity, FlatList, ImageBackground, StyleSheet, Dimensions} from 'react-native';
-import {Link} from 'expo-router';
+import {Link, type Href} from 'expo-router';
 
 const CARD_UYIR = require('../../../assets/images/eluthukkal-banner-1.png');
 const CARD_MEI = require('../../../assets/images/eluthukkal-banner-2.png');
@@ -35,28 +35,25 @@ export default function LettersLanding() {
                     contentContainerStyle={{ paddingHorizontal: SIDE_PADDING, paddingTop: 8, paddingBottom: 16 }}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}   // two columns with a fixed gap
                     renderItem={({ item }) => {
-                        const target =
+                        const target: Href =
                             item.key === 'uyirmei'
                                 ? '/(app)/letters/uyirmei'
-                                : { pathname: '/(app)/letters/[type]', params: { type: item.key } };
+                                : {
+                                    pathname: '/(app)/letters/[type]',
+                                    params: { type: item.key },
+                                };
 
                         return (
                             <View style={{ width: ITEM_WIDTH, marginBottom: 16 }}>
-                                {/* Image (clickable) */}
                                 <Link href={target} asChild>
                                     <TouchableOpacity activeOpacity={0.85}>
                                         <Image
                                             source={item.banner}
-                                            style={{
-                                                width: ITEM_WIDTH,
-                                                height: ITEM_WIDTH,
-                                                resizeMode: 'contain',
-                                            }}
+                                            style={{ width: ITEM_WIDTH, height: ITEM_WIDTH, resizeMode: 'contain' }}
                                         />
                                     </TouchableOpacity>
                                 </Link>
 
-                                {/* Label (also clickable) */}
                                 <Link href={target} asChild>
                                     <TouchableOpacity activeOpacity={0.8}>
                                         <View className="bg-[#3F51B5] rounded-md px-2 py-3 self-center">
@@ -69,6 +66,7 @@ export default function LettersLanding() {
                             </View>
                         );
                     }}
+
                 />
 
 
