@@ -668,7 +668,7 @@ const styles = StyleSheet.create({
     wordPill: {
         alignSelf: 'center',
         borderRadius: 999,
-        backgroundColor: '#46a626',
+        backgroundColor: '#4867B9FF',
         paddingHorizontal: 40,
         paddingVertical: 10,
         elevation: 4,
