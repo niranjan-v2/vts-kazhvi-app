@@ -80,6 +80,13 @@ export default function ModulesScreen() {
                                 className="mb-4"
                             />
                         </Link>
+                        <Link href="/(app)/months" asChild>
+                            <Button
+                                label="மாதங்கள்"
+                                scheme="dark"
+                                className="mb-4"
+                            />
+                        </Link>
                     </>
                 ) : null}
 

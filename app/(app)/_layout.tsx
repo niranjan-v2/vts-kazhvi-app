@@ -162,6 +162,14 @@ export default function AppTabsLayout() {
                         headerShown: false,
                     }}
                 />
+                <Tabs.Screen
+                    name="months"
+                    options={{
+                        href: null,
+                        headerShown: false,
+                    }}
+                />
+
             </Tabs>
         </ProtectedTabs>
     );
