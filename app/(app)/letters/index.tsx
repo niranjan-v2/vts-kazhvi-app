@@ -34,40 +34,41 @@ export default function LettersLanding() {
                     keyExtractor={(it) => it.key}
                     contentContainerStyle={{ paddingHorizontal: SIDE_PADDING, paddingTop: 8, paddingBottom: 16 }}
                     columnWrapperStyle={{ justifyContent: 'space-between' }}   // two columns with a fixed gap
-                    renderItem={({ item }) => (
-                        <View style={{ width: ITEM_WIDTH, marginBottom: 16 }}>
-                            {/* Image (clickable) */}
-                            <Link
-                                href={{ pathname: '/(app)/letters/[type]', params: { type: item.key } }}
-                                asChild
-                            >
-                                <TouchableOpacity activeOpacity={0.85}>
-                                    <Image
-                                        source={item.banner}
-                                        style={{
-                                            width: ITEM_WIDTH,
-                                            height: ITEM_WIDTH,
-                                            resizeMode: 'contain',
-                                        }}
-                                    />
-                                </TouchableOpacity>
-                            </Link>
+                    renderItem={({ item }) => {
+                        const target =
+                            item.key === 'uyirmei'
+                                ? '/(app)/letters/uyirmei'
+                                : { pathname: '/(app)/letters/[type]', params: { type: item.key } };
 
-                            {/* Label (also clickable) */}
-                            <Link
-                                href={{ pathname: '/(app)/letters/[type]', params: { type: item.key } }}
-                                asChild
-                            >
-                                <TouchableOpacity activeOpacity={0.8}>
-                                    <View className="bg-[#3F51B5] rounded-md px-2 py-3 self-center">
-                                        <Text className="text-[#FFFFFF] text-[12.2px] font-bold text-center">
-                                            {item.label}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </Link>
-                        </View>
-                    )}
+                        return (
+                            <View style={{ width: ITEM_WIDTH, marginBottom: 16 }}>
+                                {/* Image (clickable) */}
+                                <Link href={target} asChild>
+                                    <TouchableOpacity activeOpacity={0.85}>
+                                        <Image
+                                            source={item.banner}
+                                            style={{
+                                                width: ITEM_WIDTH,
+                                                height: ITEM_WIDTH,
+                                                resizeMode: 'contain',
+                                            }}
+                                        />
+                                    </TouchableOpacity>
+                                </Link>
+
+                                {/* Label (also clickable) */}
+                                <Link href={target} asChild>
+                                    <TouchableOpacity activeOpacity={0.8}>
+                                        <View className="bg-[#3F51B5] rounded-md px-2 py-3 self-center">
+                                            <Text className="text-[#FFFFFF] text-[12.2px] font-bold text-center">
+                                                {item.label}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </Link>
+                            </View>
+                        );
+                    }}
                 />
 
 
