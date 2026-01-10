@@ -18,7 +18,7 @@ const ITEMS = [
 ];
 
 const { width: SCREEN_WIDTH } = Dimensions.get('window');
-const SIDE_PADDING = 16;   // matches your screen padding
+const SIDE_PADDING = 10;   // matches screen padding
 const GUTTER = 12;         // space between the two items
 const ITEM_WIDTH = (SCREEN_WIDTH - SIDE_PADDING * 2 - GUTTER) / 2; //  exact half width
 
